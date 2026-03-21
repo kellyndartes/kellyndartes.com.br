@@ -423,4 +423,15 @@ function resetAll() {
     videoPreview.pause();
     videoPreview.src = "";
     document.getElementById('resultUI').style.display = 'none';
-    document
+    document.getElementById('editUI').style.display = 'none';
+    editorCanvas.style.display = 'none'; canvasPreview.style.display = 'none';
+    videoPreview.style.display = 'none'; videoTimer.style.display = 'none';
+    document.getElementById('cameraUI').style.display = 'flex';
+    sideArt.style.display = 'block';
+    fileInput.value = "";
+}
+
+function switchCamera() { usingFrontCamera = !usingFrontCamera; initCamera(); }
+</script>
+</body>
+</html>
