@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>Convite Sophia - 1 Aninho</title>
+
+<!-- CAPALINK -->
+<meta property="og:title" content="Convite Sophia 💖">
+<meta property="og:description" content="Toque para abrir o convite">
+<meta property="og:image" content="capalink.png">
+<meta property="og:type" content="website">
+
+<style>
+:root {
+    --cor-botao-x: #ff66c4; 
+    --cor-botao-som: #ff66c4; 
+}
+
+body, html { 
+    margin: 0; 
+    padding: 0; 
+    width: 100%; 
+    height: 100dvh;
+    overflow: hidden; 
+    background: #000; 
+}
+
+/* TELAS */
+.page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100dvh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.active { display: flex; }
+
+/* WRAPPER */
+.media-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* IMAGEM / VIDEO */
+.art-bg,
+.video-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* BOTÃO ÁUDIO */
+.btn-audio {
+    position: fixed;
+    top: calc(env(safe-area-inset-top) + 50px);
+    left: 25px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--cor-botao-som);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999;
+    border: none;
+    font-size: 22px;
+    animation: float 3s ease-in-out infinite;
+}
+
+/* BOTÃO CAPA */
+.btn-start {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* HOTSPOTS */
+.hotspot {
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+    background: transparent;
+    transition: transform 0.2s ease;
+}
+
+/* BOTÕES DO VÍDEO */
+.btn1 {
+    bottom: 35%;
+    left: 16%;
+    width: 80px;
+    height: 80px;
+}
+
+.btn2 {
+    bottom: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+}
+
+.btn3 {
+    bottom: 35%;
+    right: 18%;
+    width: 80px;
+    height: 80px;
+}
+
+/* CLIQUE */
+.btn1:active,
+.btn3:active {
+    transform: scale(0.95);
+}
+
+.btn2:active {
+    transform: translateX(-50%) scale(0.95);
+}
+
+/* BOTÃO VOLTAR */
+.btn-x {
+    position: absolute;
+    top: calc(env(safe-area-inset-top) + 50px);
+    right: 25px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--cor-botao-x);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    font-size: 22px;
+    animation: float 3s ease-in-out infinite;
+    z-index: 9999;
+}
+
+.btn-x:active {
+    transform: scale(0.9);
+}
+
+/* ANIMAÇÃO */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0px); }
+}
+</style>
+</head>
+
+<body onclick="iniciarAudioAutomatico()">
+
+<!-- ÁUDIO FUNDO -->
+<audio id="musica" loop playsinline>
+    <source src="audio.mp3" type="audio/mpeg">
+</audio>
+
+<button class="btn-audio" onclick="toggleAudio(event)" id="audioControl">🔊</button>
+
+<!-- CAPA -->
+<div id="capa" class="page active">
+    <div class="media-wrapper">
+        <img src="capa.png" class="art-bg">
+        <div class="btn-start" onclick="abrirVideo()"></div>
+    </div>
+</div>
+
+<!-- VÍDEO -->
+<div id="videoPage" class="page">
+    <div class="media-wrapper">
+        <video id="videoConvite" class="video-bg" playsinline webkit-playsinline>
+            <source src="video.mp4" type="video/mp4">
+        </video>
+
+        <!-- BOTÕES -->
+        <div class="hotspot btn1"
+        onclick="vibrar(); window.open('https://kellyndartes.com.br/formulariosophia/', '_blank')"></div>
+
+        <div class="hotspot btn2"
+        onclick="vibrar(); window.open('https://maps.app.goo.gl/859PChTEDadoassk9', '_blank')"></div>
+
+        <div class="hotspot btn3"
+        onclick="vibrar(); irParaSugestao()"></div>
+
+    </div>
+</div>
+
+<!-- PRESENTES -->
+<div id="sugestao" class="page">
+    <div class="media-wrapper">
+        <img src="pagina2.png" class="art-bg">
+        <button class="btn-x" onclick="voltarParaVideo()">✕</button>
+    </div>
+</div>
+
+<script>
+const audio = document.getElementById('musica');
+const btnAudio = document.getElementById('audioControl');
+const video = document.getElementById('videoConvite');
+let audioIniciado = false;
+
+/* ÁUDIO FUNDO */
+function iniciarAudioAutomatico() {
+    if (!audioIniciado) {
+        audio.play().catch(() => {});
+        audioIniciado = true;
+    }
+}
+
+function toggleAudio(event) {
+    event.stopPropagation();
+    if (audio.paused) {
+        audio.play();
+        btnAudio.innerHTML = "🔊";
+    } else {
+        audio.pause();
+        btnAudio.innerHTML = "🔇";
+    }
+}
+
+/* CAPA → VÍDEO */
+function abrirVideo() {
+    document.getElementById('capa').classList.remove('active');
+    document.getElementById('videoPage').classList.add('active');
+
+    audio.pause(); // pausa música
+
+    video.muted = false;
+    video.currentTime = 0;
+    video.play();
+}
+
+/* VÍDEO → PRESENTES */
+function irParaSugestao() {
+    document.getElementById('videoPage').classList.remove('active');
+    document.getElementById('sugestao').classList.add('active');
+    video.pause();
+}
+
+/* VOLTAR PARA VÍDEO */
+function voltarParaVideo() {
+    document.getElementById('sugestao').classList.remove('active');
+    document.getElementById('videoPage').classList.add('active');
+
+    video.play();
+}
+
+/* VIBRAÇÃO */
+function vibrar() {
+    if (navigator.vibrate) {
+        navigator.vibrate([30, 50, 30]);
+    }
+}
+</script>
+
+</body>
+</html>
