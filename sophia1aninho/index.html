@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--
+© 2026 Cristiane Oliveira
+Material exclusivo para alunos.
+Proibida reprodução, distribuição ou revenda.
+Lei 9.610/98 – Direitos Autorais.
+-->
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Convite Yasmin - 6 Anos</title>
+    <style>
+        :root {
+            --cor-botao-x: #9b59b6; 
+            --cor-botao-som: #9b59b6; 
+            
+            /* ---------------------------------------------------------
+               ALUNAS: ÁREA DE AJUSTES DOS BOTÕES (HOTSPOTS) 
+            ---------------------------------------------------------- */
+            
+            /* 1. POSIÇÃO: Diminuir o % sobe os botões, aumentar desce */
+            --posicao-vertical-botoes: 60%;
+            
+            /* 2. VISIBILIDADE: Para VER os botões coloque 0.5 | Para ESCONDER coloque 0 */
+            --visibilidade-hotspot: 0;
+
+            --espaco-entre-botoes: 5%; 
+            --tamanho-clicavel: 65px; 
+        }
+
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100dvh; 
+            overflow: hidden; font-family: sans-serif; background: #000; 
+        }
+
+        .media-wrapper {
+            position: relative; width: 100%; height: 100dvh;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .page {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: none; justify-content: center; align-items: center;
+        }
+
+        .active { display: flex; }
+
+        .background-img {
+            width: 100%; height: 100%; object-fit: contain; pointer-events: none;
+        }
+
+        /* Botão de Som - CANTO ESQUERDO com PULSE */
+        .btn-audio {
+            position: fixed; top: 25px; left: 25px;
+            width: 45px; height: 45px;
+            background-color: var(--cor-botao-som);
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 9999; border: none; font-size: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            -webkit-tap-highlight-color: transparent;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Botão de Fechar (X) - CANTO DIREITO */
+        .btn-x {
+            position: absolute; top: 25px; right: 25px;
+            width: 45px; height: 45px;
+            background-color: var(--cor-botao-x);
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; border: none; font-weight: bold; font-size: 20px;
+            z-index: 9998;
+        }
+
+        /* Hotspots */
+        .hotspot-container {
+            position: absolute;
+            top: var(--posicao-vertical-botoes);
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex; gap: var(--espaco-entre-botoes);
+            width: 100%; justify-content: center; z-index: 10;
+        }
+
+        .hotspot {
+            width: var(--tamanho-clicavel);
+            height: var(--tamanho-clicavel);
+            /* Aqui a cor muda automaticamente conforme o ajuste lá no topo */
+            background: rgba(255, 255, 255, var(--visibilidade-hotspot));
+            border: 1px solid rgba(255, 255, 255, var(--visibilidade-hotspot));
+            border-radius: 50%;
+            cursor: pointer; -webkit-tap-highlight-color: transparent;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(155, 89, 182, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(0, 0, 0, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+        }
+
+        .copyright { display: none !important; }
+    </style>
+</head>
+<body onclick="iniciarAudioAutomatico()">
+
+    <audio id="musica" loop playsinline>
+        <source src="audio.mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="btn-audio" onclick="toggleAudio(event)" id="audioControl">🔊</button>
+
+    <div id="principal" class="page active">
+        <div class="media-wrapper">
+            <img src="pagina.png" class="background-img">
+            <div class="hotspot-container">
+                <div class="hotspot" onclick="window.open('https://wa.me/5518988182488?text=confirmo%20presença')"></div>
+                <div class="hotspot" onclick="irParaPagina3()"></div>
+                <div class="hotspot" onclick="irParaSugestao()"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sugestao" class="page">
+        <div class="media-wrapper">
+            <img src="pagina2.png" class="background-img">
+            <button class="btn-x" onclick="voltarParaPrincipal()">✕</button>
+        </div>
+    </div>
+
+    <div id="pagina3" class="page">
+        <div class="media-wrapper">
+            <img src="pagina3.png" class="background-img">
+            <button class="btn-x" onclick="voltarParaPrincipal()">✕</button>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('musica');
+        const btnAudio = document.getElementById('audioControl');
+        let audioIniciado = false;
+
+        function iniciarAudioAutomatico() {
+            if (!audioIniciado) {
+                audio.play().catch(e => console.log("Interação necessária"));
+                audioIniciado = true;
+                btnAudio.innerHTML = "🔊";
+            }
+        }
+
+        function toggleAudio(event) {
+            event.stopPropagation();
+            if (audio.paused) {
+                audio.play();
+                btnAudio.innerHTML = "🔊";
+            } else {
+                audio.pause();
+                btnAudio.innerHTML = "🔇";
+            }
+        }
+
+        function irParaSugestao() { fecharTodas(); document.getElementById('sugestao').classList.add('active'); }
+        function irParaPagina3() { fecharTodas(); document.getElementById('pagina3').classList.add('active'); }
+        function voltarParaPrincipal() { fecharTodas(); document.getElementById('principal').classList.add('active'); }
+        function fecharTodas() {
+            const paginas = document.querySelectorAll('.page');
+            paginas.forEach(p => p.classList.remove('active'));
+        }
+    </script>
+</body>
+</html>
