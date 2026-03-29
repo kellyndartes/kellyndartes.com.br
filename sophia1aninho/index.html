@@ -76,23 +76,18 @@ body, html {
 /* BOTÕES CLICÁVEIS INDIVIDUAIS */
 .hotspot {
     position: absolute;
-    width: 80px;
-    height: 80px;
     border-radius: 50%;
     cursor: pointer;
     background: rgba(255, 0, 0, 0.25);
+    transition: transform 0.2s ease;
 }
-
-.hotspot:active {
-    transform: scale(0.92);
-}
-
-/* POSIÇÃO DOS 3 BOTÕES */
 
 /* CONFIRMAR PRESENÇA */
 .btn1 {
     bottom: 36%;
     left: 17%;
+    width: 80px;
+    height: 80px;
 }
 
 /* LOCALIZAÇÃO */
@@ -100,14 +95,27 @@ body, html {
     bottom: 36%;
     left: 50%;
     transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
 }
 
 /* PRESENTE / LISTA */
 .btn3 {
     bottom: 36%;
-    right: 14%;
+    right: 18%;
+    width: 80px;
+    height: 80px;
 }
 
+/* clique sem bug */
+.btn1:active,
+.btn3:active {
+    transform: scale(0.92);
+}
+
+.btn2:active {
+    transform: translateX(-50%) scale(0.92);
+}
 /* BOTÃO X */
 .btn-x {
     position: absolute;
