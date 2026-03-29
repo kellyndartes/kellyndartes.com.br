@@ -6,18 +6,11 @@
 
 <title>Convite Sophia - 1 Aninho</title>
 
-<!-- CAPALINK -->
 <meta property="og:title" content="Convite Sophia 💖">
 <meta property="og:description" content="Toque para abrir o convite">
 <meta property="og:image" content="capalink.png">
-<meta property="og:type" content="website">
 
 <style>
-:root {
-    --cor-botao-x: #ff66c4; 
-    --cor-botao-som: #ff66c4; 
-}
-
 body, html { 
     margin: 0; 
     padding: 0; 
@@ -57,30 +50,10 @@ body, html {
     pointer-events: none;
 }
 
-/* BOTÃO ÁUDIO */
-.btn-audio {
-    position: fixed;
-    top: calc(env(safe-area-inset-top) + 50px);
-    left: 25px;
-    width: 50px;
-    height: 50px;
-    background-color: var(--cor-botao-som);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 9999;
-    border: none;
-    font-size: 22px;
-    animation: float 3s ease-in-out infinite;
-}
-
-/* BOTÃO CAPA */
+/* BOTÃO CAPA (SUBI ELE) */
 .btn-start {
     position: absolute;
-    bottom: 20%;
+    bottom: 28%; /* 👈 antes era 20% */
     left: 50%;
     transform: translateX(-50%);
     width: 120px;
@@ -138,7 +111,7 @@ body, html {
     right: 25px;
     width: 50px;
     height: 50px;
-    background-color: var(--cor-botao-x);
+    background-color: #ff66c4;
     color: white;
     border-radius: 50%;
     display: flex;
@@ -147,31 +120,16 @@ body, html {
     cursor: pointer;
     border: none;
     font-size: 22px;
-    animation: float 3s ease-in-out infinite;
     z-index: 9999;
 }
 
 .btn-x:active {
     transform: scale(0.9);
 }
-
-/* ANIMAÇÃO */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-4px); }
-    100% { transform: translateY(0px); }
-}
 </style>
 </head>
 
-<body onclick="iniciarAudioAutomatico()">
-
-<!-- ÁUDIO FUNDO -->
-<audio id="musica" loop playsinline>
-    <source src="audio.mp3" type="audio/mpeg">
-</audio>
-
-<button class="btn-audio" onclick="toggleAudio(event)" id="audioControl">🔊</button>
+<body>
 
 <!-- CAPA -->
 <div id="capa" class="page active">
@@ -190,14 +148,13 @@ body, html {
 
         <!-- BOTÕES -->
         <div class="hotspot btn1"
-        onclick="vibrar(); window.open('https://kellyndartes.com.br/formulariosophia/', '_blank')"></div>
+        onclick="window.open('https://kellyndartes.com.br/formulariosophia/', '_blank')"></div>
 
         <div class="hotspot btn2"
-        onclick="vibrar(); window.open('https://maps.app.goo.gl/859PChTEDadoassk9', '_blank')"></div>
+        onclick="window.open('https://maps.app.goo.gl/859PChTEDadoassk9', '_blank')"></div>
 
         <div class="hotspot btn3"
-        onclick="vibrar(); irParaSugestao()"></div>
-
+        onclick="irParaSugestao()"></div>
     </div>
 </div>
 
@@ -210,38 +167,13 @@ body, html {
 </div>
 
 <script>
-const audio = document.getElementById('musica');
-const btnAudio = document.getElementById('audioControl');
 const video = document.getElementById('videoConvite');
-let audioIniciado = false;
-
-/* ÁUDIO FUNDO */
-function iniciarAudioAutomatico() {
-    if (!audioIniciado) {
-        audio.play().catch(() => {});
-        audioIniciado = true;
-    }
-}
-
-function toggleAudio(event) {
-    event.stopPropagation();
-    if (audio.paused) {
-        audio.play();
-        btnAudio.innerHTML = "🔊";
-    } else {
-        audio.pause();
-        btnAudio.innerHTML = "🔇";
-    }
-}
 
 /* CAPA → VÍDEO */
 function abrirVideo() {
     document.getElementById('capa').classList.remove('active');
     document.getElementById('videoPage').classList.add('active');
 
-    audio.pause(); // pausa música
-
-    video.muted = false;
     video.currentTime = 0;
     video.play();
 }
@@ -259,13 +191,6 @@ function voltarParaVideo() {
     document.getElementById('videoPage').classList.add('active');
 
     video.play();
-}
-
-/* VIBRAÇÃO */
-function vibrar() {
-    if (navigator.vibrate) {
-        navigator.vibrate([30, 50, 30]);
-    }
 }
 </script>
 
