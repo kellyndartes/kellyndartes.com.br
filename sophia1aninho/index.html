@@ -66,24 +66,27 @@ Lei 9.610/98 – Direitos Autorais.
         }
 
         /* Botão de Som (Superior Direito) */
-        .btn-audio {
-            position: fixed;
-            top: env(safe-area-inset-top, 25px); /* Respeita o notch do iPhone */
-            right: 25px;
-            width: 45px;
-            height: 45px;
-            background-color: var(--cor-botao-som);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 9999;
-            border: none;
-            font-size: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            -webkit-tap-highlight-color: transparent;
+       .btn-audio {
+    position: fixed;
+    top: env(safe-area-inset-top, 25px);
+    left: 25px;       /* AGORA NA ESQUERDA */
+    right: auto;      /* evita conflito */
+
+    width: 45px;
+    height: 45px;
+    background-color: var(--cor-botao-som);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    -webkit-tap-highlight-color: transparent;
+
         }
 
         /* Container dos Hotspots Relativo à Imagem */
@@ -93,7 +96,7 @@ Lei 9.610/98 – Direitos Autorais.
             height: 100%;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translatex(-50%, -50%);
             /* Opcional: aspect-ratio deve bater com o da sua imagem (ex: 9/16) */
             aspect-ratio: 9 / 16; 
             max-height: 100dvh;
@@ -101,56 +104,67 @@ Lei 9.610/98 – Direitos Autorais.
         }
 
         .hotspot-container {
-        position: absolute;
-        bottom: 23.8%;
+         position: absolute;
+         bottom: 21.5%;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
         justify-content: center;
         width: 78%;
-        gap: 8%;
-        }
+       gap: 10%;
+            
+    }
 
-        .hotspot {
-        width: 18%;
-        aspect-ratio: 1 / 1;
-        max-width: 95px;
-        min-width: 60px;
+       .hotspot {
+       width: 18%;
+       aspect-ratio: 1 / 1;
+       max-width: 95px;
+       min-width: 60px;
 
-        background: rgba(255, 0, 0, 0.25); /* só pra você enxergar */
-        border-radius: 50%;
-        cursor: pointer;
-        border: none;
-        outline: none;
+       background: transparent;
+       border-radius: 50%;
+       cursor: pointer;
+       border: none;
+       outline: none;
+}
 
         }
 
         /* Botão X (Página 2) */
-        .btn-x {
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--cor-botao-x);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border: none;
-            font-weight: bold;
-            font-size: 22px;
-            animation: pulse 1.5s infinite;
-            z-index: 9998;
-        }
+.btn-x {
+    position: absolute;
+    top: 25px;
+    right: 25px; /* AGORA NA DIREITA */
+    
+    width: 50px;
+    height: 50px;
+    background-color: var(--cor-botao-x);
+    color: white;
+    border-radius: 50%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    font-size: 22px;
+    
+    animation: pulse 1.5s infinite;
+    z-index: 9998;
+}
 
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(155, 89, 182, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(0, 0, 0, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
-        }
+        @keyframes float {
+             0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
 
         .copyright { display: none !important; visibility: hidden; pointer-events: none; }
     </style>
@@ -168,9 +182,9 @@ Lei 9.610/98 – Direitos Autorais.
             <img src="pagina.png" class="art-bg" alt="Convite Principal">
             <div class="hotspot-area">
                 <div class="hotspot-container">
-                    <div class="hotspot" onclick="window.open('https://wa.me/5551991224472?text=Ol%C3%A1%20gostaria%20de%20confirmar%20a%20minha%20presen%C3%A7a%20no%20anivers%C3%A1rio%20da%20Sophia!')"></div>
-                    <div class="hotspot" onclick="window.open('https://maps.app.goo.gl/859PChTEDadoassk9')"></div>
-                    <div class="hotspot" onclick="irParaSugestao()"></div>
+                    <div class="hotspot" vibrate([30, 50, 30]);="window.open('https://wa.me/5551991224472?text=Ol%C3%A1%20gostaria%20de%20confirmar%20a%20minha%20presen%C3%A7a%20no%20anivers%C3%A1rio%20da%20Sophia!')"></div>
+                    <div class="hotspot" vibrate([30, 50, 30]);="window.open('https://maps.app.goo.gl/859PChTEDadoassk9')"></div>
+                    <div class="hotspot" vibrate([30, 50, 30]);="irParaSugestao()"></div>
                 </div>
             </div>
         </div>
