@@ -49,12 +49,12 @@ body, html {
 
 /* BOTÃO ÁUDIO */
 .btn-audio {
-    position: fixed;
+    position: absolute;
     top: calc(env(safe-area-inset-top) + 50px);
     left: 25px;
 
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     background-color: var(--cor-botao-som);
     color: white;
     border-radius: 50%;
@@ -67,6 +67,10 @@ body, html {
     z-index: 9999;
     border: none;
     font-size: 20px;
+    
+    animation: float 3s ease-in-out infinite;
+    z-index: 9999;
+    
 }
 
 /* BOTÕES CLICÁVEIS INDIVIDUAIS */
