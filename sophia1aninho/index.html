@@ -54,7 +54,8 @@ body, html {
 /* BOTÃO ÁUDIO */
 .btn-audio {
     position: fixed;
-    top: env(safe-area-inset-top, 25px);
+
+    top: calc(env(safe-area-inset-top) + 40px); /* 👈 ajustado pra descer */
     left: 25px;
 
     width: 45px;
@@ -108,7 +109,8 @@ body, html {
 /* BOTÃO X */
 .btn-x {
     position: absolute;
-    top: 25px;
+
+    top: calc(env(safe-area-inset-top) + 40px); /* 👈 MESMA ALTURA */
     right: 25px;
 
     width: 50px;
