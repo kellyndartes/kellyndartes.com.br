@@ -44,12 +44,13 @@ body, html {
 .art-bg {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 👈 remove faixa preta */
+    object-fit: cover;
+    pointer-events: none; /* evita bloquear clique */
 }
 
 /* BOTÃO ÁUDIO */
 .btn-audio {
-    position: absolute;
+    position: fixed;
     top: calc(env(safe-area-inset-top) + 50px);
     left: 25px;
 
@@ -67,13 +68,11 @@ body, html {
     z-index: 9999;
     border: none;
     font-size: 22px;
-    
+
     animation: float 3s ease-in-out infinite;
-    z-index: 9999;
-    
 }
 
-/* BOTÕES CLICÁVEIS INDIVIDUAIS */
+/* BOTÕES CLICÁVEIS */
 .hotspot {
     position: absolute;
     border-radius: 50%;
@@ -82,7 +81,7 @@ body, html {
     transition: transform 0.2s ease;
 }
 
-/* CONFIRMAR PRESENÇA */
+/* CONFIRMAR */
 .btn1 {
     bottom: 35%;
     left: 16%;
@@ -99,14 +98,24 @@ body, html {
     height: 80px;
 }
 
-/* PRESENTE / LISTA */
+/* PRESENTE */
 .btn3 {
     bottom: 35%;
     right: 18%;
     width: 80px;
     height: 80px;
-    
 }
+
+/* CLIQUE SEM BUG */
+.btn1:active,
+.btn3:active {
+    transform: scale(0.95);
+}
+
+.btn2:active {
+    transform: translateX(-50%) scale(0.95);
+}
+
 /* BOTÃO X */
 .btn-x {
     position: absolute;
@@ -131,7 +140,7 @@ body, html {
     z-index: 9999;
 }
 
-/* ANIMAÇÃO */
+/* ANIMAÇÃO SUAVE */
 @keyframes float {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-4px); }
@@ -140,10 +149,6 @@ body, html {
 
 .btn-x:active {
     transform: scale(0.9);
-}
-
-.hotspot:active {
-    transform: scale(0.95);
 }
 </style>
 </head>
@@ -161,7 +166,6 @@ body, html {
     <div class="media-wrapper">
         <img src="pagina.png" class="art-bg">
 
-        <!-- BOTÕES -->
         <div class="hotspot btn1"
         onclick="vibrar(); window.open('https://wa.me/5551991224472?text=Olá%20gostaria%20de%20confirmar%20minha%20presença%20no%20aniversário%20da%20Sophia!')"></div>
 
