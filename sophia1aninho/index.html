@@ -9,89 +9,138 @@ Lei 9.610/98 – Direitos Autorais.
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
     <title>Convite Sophia - 1 Aninho</title>
+    <meta property="og:title" content="Convite especial: Sophia - 1 Aninho!">
+    <meta property="og:description" content="Toque para abrir os detalhes deste dia incrível.">
+    <meta property="og:image" content="https://kellyndartes.com.br/sophia1aninho/capalink.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+
     <style>
         :root {
+            /* EDIÇÃO MANUAL */
             --cor-botao-x: #9b59b6; 
             --cor-botao-som: #9b59b6; 
-            
-            /* ---------------------------------------------------------
-               ALUNAS: ÁREA DE AJUSTES DOS BOTÕES (HOTSPOTS) 
-            ---------------------------------------------------------- */
-            
-            /* 1. POSIÇÃO: Diminuir o % sobe os botões, aumentar desce */
-            --posicao-vertical-botoes: 60%;
-            
-            /* 2. VISIBILIDADE: Para VER os botões coloque 0.5 | Para ESCONDER coloque 0 */
-            --visibilidade-hotspot: 0;
-
-            --espaco-entre-botoes: 5%; 
-            --tamanho-clicavel: 65px; 
+            --tamanho-clicavel: 15%; /* Botões proporcionais à largura da imagem */
         }
 
         body, html { 
-            margin: 0; padding: 0; width: 100%; height: 100dvh; 
-            overflow: hidden; font-family: sans-serif; background: #000; 
+            margin: 0; 
+            padding: 0; 
+            width: 100%; 
+            height: 100dvh; /* Uso de dvh para evitar cortes no Safari */
+            overflow: hidden; 
+            font-family: sans-serif; 
+            background: #000; 
         }
 
-        .media-wrapper {
-            position: relative; width: 100%; height: 100dvh;
-            display: flex; justify-content: center; align-items: center;
-        }
-
+        /* Estrutura das Telas */
         .page {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: none; justify-content: center; align-items: center;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; 
+            height: 100dvh;
+            display: none;
+            justify-content: center;
+            align-items: center;
         }
 
         .active { display: flex; }
 
-        .background-img {
-            width: 100%; height: 100%; object-fit: contain; pointer-events: none;
+        /* Container que mantém a proporção da arte sem cortar */
+        .media-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Botão de Som - CANTO ESQUERDO com PULSE */
+        .art-bg {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Garante que a arte apareça inteira */
+        }
+
+        /* Botão de Som (Superior Direito) */
         .btn-audio {
-            position: fixed; top: 25px; left: 25px;
-            width: 45px; height: 45px;
+            position: fixed;
+            top: env(safe-area-inset-top, 25px); /* Respeita o notch do iPhone */
+            right: 25px;
+            width: 45px;
+            height: 45px;
             background-color: var(--cor-botao-som);
-            color: white; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 9999; border: none; font-size: 20px;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9999;
+            border: none;
+            font-size: 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             -webkit-tap-highlight-color: transparent;
-            animation: pulse 1.5s infinite;
         }
 
-        /* Botão de Fechar (X) - CANTO DIREITO */
-        .btn-x {
-            position: absolute; top: 25px; right: 25px;
-            width: 45px; height: 45px;
-            background-color: var(--cor-botao-x);
-            color: white; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; border: none; font-weight: bold; font-size: 20px;
-            z-index: 9998;
-        }
-
-        /* Hotspots */
-        .hotspot-container {
+        /* Container dos Hotspots Relativo à Imagem */
+        .hotspot-area {
             position: absolute;
-            top: var(--posicao-vertical-botoes);
+            width: 100%;
+            height: 100%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            display: flex; gap: var(--espaco-entre-botoes);
-            width: 100%; justify-content: center; z-index: 10;
+            /* Opcional: aspect-ratio deve bater com o da sua imagem (ex: 9/16) */
+            aspect-ratio: 9 / 16; 
+            max-height: 100dvh;
+            max-width: calc(100dvh * (9/16));
+        }
+
+        .hotspot-container {
+            position: absolute;
+            bottom: 22%; /* Ajuste essa % para subir ou descer os botões na arte */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 45px;
+            width: 80%;
+            justify-content: center;
         }
 
         .hotspot {
-            width: var(--tamanho-clicavel);
-            height: var(--tamanho-clicavel);
-            /* Aqui a cor muda automaticamente conforme o ajuste lá no topo */
-            background: rgba(255, 255, 255, var(--visibilidade-hotspot));
-            border: 1px solid rgba(255, 255, 255, var(--visibilidade-hotspot));
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.0); 
             border-radius: 50%;
-            cursor: pointer; -webkit-tap-highlight-color: transparent;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Botão X (Página 2) */
+        .btn-x {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--cor-botao-x);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+            font-size: 22px;
+            animation: pulse 1.5s infinite;
+            z-index: 9998;
         }
 
         @keyframes pulse {
@@ -100,7 +149,7 @@ Lei 9.610/98 – Direitos Autorais.
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
         }
 
-        .copyright { display: none !important; }
+        .copyright { display: none !important; visibility: hidden; pointer-events: none; }
     </style>
 </head>
 <body onclick="iniciarAudioAutomatico()">
@@ -113,27 +162,26 @@ Lei 9.610/98 – Direitos Autorais.
 
     <div id="principal" class="page active">
         <div class="media-wrapper">
-            <img src="pagina.png" class="background-img">
-            <div class="hotspot-container">
-                <div class="hotspot" onclick="window.open('https://wa.me/5518988182488?text=confirmo%20presença')"></div>
-                <div class="hotspot" onclick="irParaPagina3()"></div>
-                <div class="hotspot" onclick="irParaSugestao()"></div>
+            <img src="pagina.png" class="art-bg" alt="Convite Principal">
+            <div class="hotspot-area">
+                <div class="hotspot-container">
+                    <div class="hotspot" onclick="window.open('https://wa.me/5571993233142?text=confirmo%20presença%20neste%20dia%20especial')"></div>
+                    <div class="hotspot" onclick="window.open('https://maps.app.goo.gl/AvxVqge85ax4M46U9')"></div>
+                    <div class="hotspot" onclick="irParaSugestao()"></div>
+                </div>
             </div>
         </div>
     </div>
 
     <div id="sugestao" class="page">
         <div class="media-wrapper">
-            <img src="pagina2.png" class="background-img">
-            <button class="btn-x" onclick="voltarParaPrincipal()">✕</button>
+            <img src="pagina2.png" class="art-bg" alt="Sugestão de Presente">
+            <button class="btn-x" onclick="irParaPrincipal()">✕</button>
         </div>
     </div>
 
-    <div id="pagina3" class="page">
-        <div class="media-wrapper">
-            <img src="pagina3.png" class="background-img">
-            <button class="btn-x" onclick="voltarParaPrincipal()">✕</button>
-        </div>
+    <div class="copyright" aria-hidden="true">
+        © 2026 Cristiane Oliveira. Todos os direitos reservados. 
     </div>
 
     <script>
@@ -143,14 +191,14 @@ Lei 9.610/98 – Direitos Autorais.
 
         function iniciarAudioAutomatico() {
             if (!audioIniciado) {
-                audio.play().catch(e => console.log("Interação necessária"));
+                audio.play().catch(e => console.log("Interação necessária para áudio"));
                 audioIniciado = true;
                 btnAudio.innerHTML = "🔊";
             }
         }
 
         function toggleAudio(event) {
-            event.stopPropagation();
+            event.stopPropagation(); 
             if (audio.paused) {
                 audio.play();
                 btnAudio.innerHTML = "🔊";
@@ -160,12 +208,14 @@ Lei 9.610/98 – Direitos Autorais.
             }
         }
 
-        function irParaSugestao() { fecharTodas(); document.getElementById('sugestao').classList.add('active'); }
-        function irParaPagina3() { fecharTodas(); document.getElementById('pagina3').classList.add('active'); }
-        function voltarParaPrincipal() { fecharTodas(); document.getElementById('principal').classList.add('active'); }
-        function fecharTodas() {
-            const paginas = document.querySelectorAll('.page');
-            paginas.forEach(p => p.classList.remove('active'));
+        function irParaSugestao() {
+            document.getElementById('principal').classList.remove('active');
+            document.getElementById('sugestao').classList.add('active');
+        }
+
+        function irParaPrincipal() {
+            document.getElementById('sugestao').classList.remove('active');
+            document.getElementById('principal').classList.add('active');
         }
     </script>
 </body>
