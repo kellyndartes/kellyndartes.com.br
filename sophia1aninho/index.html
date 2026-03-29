@@ -39,23 +39,18 @@ body, html {
     position: relative;
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .art-bg {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    pointer-events: none; /* LIBERA CLIQUE */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 👈 remove faixa preta */
 }
 
 /* BOTÃO ÁUDIO */
 .btn-audio {
     position: fixed;
-
-    top: calc(env(safe-area-inset-top) + 40px); /* 👈 ajustado pra descer */
+    top: calc(env(safe-area-inset-top) + 50px);
     left: 25px;
 
     width: 45px;
@@ -74,43 +69,40 @@ body, html {
     font-size: 20px;
 }
 
-/* HOTSPOTS */
-.hotspot-area {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    aspect-ratio: 9 / 16;
-}
-
-.hotspot-container {
-    position: absolute;
-    bottom: 35%; /* 👈 AJUSTE AQUI */
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    width: 75%;
-    gap: 10%;
-}
-
+/* BOTÕES CLICÁVEIS INDIVIDUAIS */
 .hotspot {
+    position: absolute;
     width: 70px;
     height: 70px;
     border-radius: 50%;
-
-    background: transparent;
     cursor: pointer;
-    border: none;
+}
+
+/* POSIÇÃO DOS 3 BOTÕES (AJUSTÁVEL) */
+
+/* CONFIRMAR PRESENÇA */
+.btn1 {
+    bottom: 38%;
+    left: 18%;
+}
+
+/* LOCALIZAÇÃO */
+.btn2 {
+    bottom: 38%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* PRESENTE / LISTA */
+.btn3 {
+    bottom: 38%;
+    right: 18%;
 }
 
 /* BOTÃO X */
 .btn-x {
     position: absolute;
-
-    top: calc(env(safe-area-inset-top) + 40px); /* 👈 MESMA ALTURA */
+    top: calc(env(safe-area-inset-top) + 50px);
     right: 25px;
 
     width: 50px;
@@ -131,7 +123,7 @@ body, html {
     z-index: 9999;
 }
 
-/* ANIMAÇÃO SUAVE */
+/* ANIMAÇÃO */
 @keyframes float {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-4px); }
@@ -140,6 +132,10 @@ body, html {
 
 .btn-x:active {
     transform: scale(0.9);
+}
+
+.hotspot:active {
+    transform: scale(0.95);
 }
 </style>
 </head>
@@ -157,23 +153,16 @@ body, html {
     <div class="media-wrapper">
         <img src="pagina.png" class="art-bg">
 
-        <div class="hotspot-area">
-            <div class="hotspot-container">
+        <!-- BOTÕES -->
+        <div class="hotspot btn1"
+        onclick="vibrar(); window.open('https://wa.me/5551991224472?text=Olá%20gostaria%20de%20confirmar%20minha%20presença%20no%20aniversário%20da%20Sophia!')"></div>
 
-                <div class="hotspot"
-                onclick="vibrar(); window.open('https://wa.me/5551991224472?text=Olá%20gostaria%20de%20confirmar%20minha%20presença%20no%20aniversário%20da%20Sophia!')">
-                </div>
+        <div class="hotspot btn2"
+        onclick="vibrar(); window.open('https://maps.app.goo.gl/859PChTEDadoassk9')"></div>
 
-                <div class="hotspot"
-                onclick="vibrar(); window.open('https://maps.app.goo.gl/859PChTEDadoassk9')">
-                </div>
+        <div class="hotspot btn3"
+        onclick="vibrar(); irParaSugestao()"></div>
 
-                <div class="hotspot"
-                onclick="vibrar(); irParaSugestao()">
-                </div>
-
-            </div>
-        </div>
     </div>
 </div>
 
