@@ -57,24 +57,30 @@ body, html {
     pointer-events: none;
 }
 
-/* BOTÃO SOM */
+/* BOTÃO ÁUDIO */
 .btn-audio {
     position: fixed;
-    top: calc(env(safe-area-inset-top) + 40px);
+    top: calc(env(safe-area-inset-top) + 50px);
     left: 25px;
+
     width: 50px;
     height: 50px;
     background-color: var(--cor-botao-som);
     color: white;
     border-radius: 50%;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     cursor: pointer;
     z-index: 9999;
     border: none;
     font-size: 22px;
+
+    animation: float 3s ease-in-out infinite;
 }
+
 
 /* HOTSPOTS */
 .hotspot {
@@ -134,7 +140,7 @@ body, html {
 </style>
 </head>
 
-<body onclick="iniciarAudioAutomatico()">
+<body>
 
 <!-- ÁUDIO -->
 <audio id="musica" loop playsinline>
