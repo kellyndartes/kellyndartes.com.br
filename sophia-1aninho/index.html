@@ -4,17 +4,115 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<title>Convite Sophia - 1 Aninho</title>
+<script>
+/* =====================================================
+   EDITAR AQUI - CONFIGURAÇÃO DO CONVITE
+   MEXA SÓ NESTE BLOCO
+===================================================== */
+const CONFIG = {
+    /* TÍTULO DO NAVEGADOR E DO CAPALINK */
+    titulo: "Convite Sophia - 1 Aninho",
+    descricao: "Toque para abrir o convite 💖",
+
+    /* IMAGEM DO PREVIEW DO LINK */
+    capalink: "capalink.png",
+
+    /* ARQUIVOS DAS PÁGINAS */
+    paginaPrincipal: "pagina.png",
+    paginaPresentes: "pagina2.png",
+
+    /* ÁUDIO */
+    audio: "audio.mp3",
+    volumeInicial: 0.6,
+
+    /* LINK DO BOTÃO DE LOCALIZAÇÃO */
+    linkLocalizacao: "https://maps.app.goo.gl/RTEsPySm4iWZiz6s9",
+
+    /* COR DO BOTÃO DE SOM */
+    corBotaoSom: "#ff66c4",
+
+    /* COR DO BOTÃO VOLTAR */
+    corBotaoVoltar: "#ff66c4",
+
+    /* POSIÇÃO DO BOTÃO DE SOM */
+    botaoSom: {
+        top: "calc(env(safe-area-inset-top) + 40px)",
+        left: "25px",
+        width: "50px",
+        height: "50px",
+        fontSize: "22px"
+    },
+
+    /* POSIÇÃO DO BOTÃO VOLTAR */
+    botaoVoltar: {
+        top: "calc(env(safe-area-inset-top) + 40px)",
+        right: "25px",
+        width: "50px",
+        height: "50px",
+        fontSize: "22px"
+    },
+
+    /* TAMANHO DA ÁREA BASE DA ARTE */
+    areaBase: {
+        maxWidth: "420px",
+        maxHeight: "750px"
+    },
+
+    /* BOTÃO 1 - LOCALIZAÇÃO */
+    botao1: {
+        bottom: "33%",
+        left: "26%",
+        width: "90px",
+        height: "90px"
+    },
+
+    /* BOTÃO 2 - PRESENTES */
+    botao2: {
+        bottom: "33%",
+        left: "56%",
+        width: "90px",
+        height: "90px"
+    }
+};
+</script>
+
+<title id="pageTitle"></title>
 
 <!-- CAPALINK -->
-<meta property="og:title" content="Convite Sophia - 1 Aninho">
-<meta property="og:description" content="Toque para abrir o convite 💖">
-<meta property="og:image" content="capalink.png">
+<meta property="og:title" content="" id="metaTitle">
+<meta property="og:description" content="" id="metaDesc">
+<meta property="og:image" content="" id="metaImage">
+<meta property="og:type" content="website">
 
 <style>
 :root {
-    --cor-botao-x: #ff66c4;
     --cor-botao-som: #ff66c4;
+    --cor-botao-voltar: #ff66c4;
+
+    --btn-som-top: 40px;
+    --btn-som-left: 25px;
+    --btn-som-width: 50px;
+    --btn-som-height: 50px;
+    --btn-som-font: 22px;
+
+    --btn-voltar-top: 40px;
+    --btn-voltar-right: 25px;
+    --btn-voltar-width: 50px;
+    --btn-voltar-height: 50px;
+    --btn-voltar-font: 22px;
+
+    --area-max-width: 420px;
+    --area-max-height: 750px;
+
+    --btn1-bottom: 33%;
+    --btn1-left: 26%;
+    --btn1-width: 90px;
+    --btn1-height: 90px;
+
+    --btn2-bottom: 33%;
+    --btn2-left: 56%;
+    --btn2-width: 90px;
+    --btn2-height: 90px;
 }
 
 body, html {
@@ -29,8 +127,6 @@ body, html {
 /* TELAS */
 .page {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100dvh;
     display: none;
@@ -53,72 +149,87 @@ body, html {
 .art-bg {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    pointer-events: none;
+    object-fit: contain;
 }
 
-/* BOTÃO ÁUDIO */
-.btn-audio {
-    position: fixed;
-    top: calc(env(safe-area-inset-top) + 50px);
-    left: 25px;
-
-    width: 50px;
-    height: 50px;
-    background-color: var(--cor-botao-som);
-    color: white;
-    border-radius: 50%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-    z-index: 9999;
-    border: none;
-    font-size: 22px;
+/* ÁREA BASE DA ARTE */
+.hotspot-area {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    max-width: var(--area-max-width);
+    max-height: var(--area-max-height);
+    aspect-ratio: 9 / 16;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
-/* HOTSPOTS */
+/* BOTÕES CLICÁVEIS */
 .hotspot {
     position: absolute;
     border-radius: 50%;
     cursor: pointer;
-    background: rgba(255, 0, 0, 0.2);
-    border: 2px solid red;
+
+    /* =====================================================
+       EDITAR AQUI TEMPORARIAMENTE
+       USE VERMELHO ENQUANTO ALINHA
+       DEPOIS VOLTE PARA transparent / none
+    ===================================================== */
+    background: transparent;
+    border: none;
+
     transition: transform 0.2s ease;
 }
 
-/* LOCALIZAÇÃO */
+/* BOTÃO 1 - LOCALIZAÇÃO */
 .btn1 {
-    bottom: 34%;
-    left: 13%;
-    width: 80px;
-    height: 80px;
+    bottom: var(--btn1-bottom);
+    left: var(--btn1-left);
+    width: var(--btn1-width);
+    height: var(--btn1-height);
 }
 
-/* PRESENTES */
+/* BOTÃO 2 - PRESENTES */
 .btn2 {
-    bottom: 34%;
-    left: 38%;
-    width: 80px;
-    height: 80px;
+    bottom: var(--btn2-bottom);
+    left: var(--btn2-left);
+    width: var(--btn2-width);
+    height: var(--btn2-height);
 }
 
 /* CLIQUE */
-.btn1:active,
-.btn2:active {
+.hotspot:active {
     transform: scale(0.95);
+}
+
+/* BOTÃO SOM */
+.btn-audio {
+    position: fixed;
+    top: var(--btn-som-top);
+    left: var(--btn-som-left);
+    width: var(--btn-som-width);
+    height: var(--btn-som-height);
+    background-color: var(--cor-botao-som);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999;
+    border: none;
+    font-size: var(--btn-som-font);
 }
 
 /* BOTÃO VOLTAR */
 .btn-x {
     position: absolute;
-    top: calc(env(safe-area-inset-top) + 40px);
-    right: 25px;
-    width: 50px;
-    height: 50px;
-    background-color: var(--cor-botao-x);
+    top: var(--btn-voltar-top);
+    right: var(--btn-voltar-right);
+    width: var(--btn-voltar-width);
+    height: var(--btn-voltar-height);
+    background-color: var(--cor-botao-voltar);
     color: white;
     border-radius: 50%;
     display: flex;
@@ -126,26 +237,21 @@ body, html {
     justify-content: center;
     cursor: pointer;
     border: none;
-    font-size: 22px;
+    font-size: var(--btn-voltar-font);
     z-index: 9999;
 }
-/* ANIMAÇÃO SUAVE */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-4px); }
-    100% { transform: translateY(0px); }
-}  
+
 .btn-x:active {
     transform: scale(0.9);
 }
 </style>
 </head>
 
-<body onclick="iniciarAudioAutomatico()">
+<body ontouchstart="iniciarAudioAutomatico()" onclick="iniciarAudioAutomatico()">
 
 <!-- ÁUDIO -->
 <audio id="musica" loop playsinline>
-    <source src="audio.mp3" type="audio/mpeg">
+    <source id="audioSource" src="" type="audio/mpeg">
 </audio>
 
 <button class="btn-audio" onclick="toggleAudio(event)" id="audioControl">🔊</button>
@@ -153,22 +259,24 @@ body, html {
 <!-- PÁGINA PRINCIPAL -->
 <div id="principal" class="page active">
     <div class="media-wrapper">
-        <img src="pagina.png" class="art-bg" alt="Convite principal">
+        <img id="imgPrincipal" src="" class="art-bg" alt="Convite principal">
 
-        <!-- LOCALIZAÇÃO -->
-        <div class="hotspot btn1"
-        onclick="window.open('https://maps.app.goo.gl/RTEsPySm4iWZiz6s9', '_blank')"></div>
+        <div class="hotspot-area">
+            <!-- BOTÃO 1 - LOCALIZAÇÃO -->
+            <div class="hotspot btn1"
+            onclick="vibrar(); window.open(CONFIG.linkLocalizacao, '_blank')"></div>
 
-        <!-- PRESENTES -->
-        <div class="hotspot btn2"
-        onclick="irParaSugestao()"></div>
+            <!-- BOTÃO 2 - PRESENTES -->
+            <div class="hotspot btn2"
+            onclick="vibrar(); irParaSugestao()"></div>
+        </div>
     </div>
 </div>
 
 <!-- PÁGINA DE PRESENTES -->
 <div id="sugestao" class="page">
     <div class="media-wrapper">
-        <img src="pagina2.png" class="art-bg" alt="Sugestão de presentes">
+        <img id="imgPresentes" src="" class="art-bg" alt="Sugestão de presentes">
         <button class="btn-x" onclick="irParaPrincipal()">✕</button>
     </div>
 </div>
@@ -178,19 +286,64 @@ const audio = document.getElementById('musica');
 const btnAudio = document.getElementById('audioControl');
 let audioIniciado = false;
 
-/* INICIAR ÁUDIO AO TOQUE EM QUALQUER LUGAR */
+/* APLICAR CONFIGURAÇÃO */
+function aplicarConfiguracao() {
+    document.title = CONFIG.titulo;
+    document.getElementById("pageTitle").textContent = CONFIG.titulo;
+
+    document.getElementById("metaTitle").setAttribute("content", CONFIG.titulo);
+    document.getElementById("metaDesc").setAttribute("content", CONFIG.descricao);
+    document.getElementById("metaImage").setAttribute("content", CONFIG.capalink);
+
+    document.getElementById("imgPrincipal").src = CONFIG.paginaPrincipal;
+    document.getElementById("imgPresentes").src = CONFIG.paginaPresentes;
+    document.getElementById("audioSource").src = CONFIG.audio;
+    audio.load();
+
+    document.documentElement.style.setProperty("--cor-botao-som", CONFIG.corBotaoSom);
+    document.documentElement.style.setProperty("--cor-botao-voltar", CONFIG.corBotaoVoltar);
+
+    document.documentElement.style.setProperty("--btn-som-top", CONFIG.botaoSom.top);
+    document.documentElement.style.setProperty("--btn-som-left", CONFIG.botaoSom.left);
+    document.documentElement.style.setProperty("--btn-som-width", CONFIG.botaoSom.width);
+    document.documentElement.style.setProperty("--btn-som-height", CONFIG.botaoSom.height);
+    document.documentElement.style.setProperty("--btn-som-font", CONFIG.botaoSom.fontSize);
+
+    document.documentElement.style.setProperty("--btn-voltar-top", CONFIG.botaoVoltar.top);
+    document.documentElement.style.setProperty("--btn-voltar-right", CONFIG.botaoVoltar.right);
+    document.documentElement.style.setProperty("--btn-voltar-width", CONFIG.botaoVoltar.width);
+    document.documentElement.style.setProperty("--btn-voltar-height", CONFIG.botaoVoltar.height);
+    document.documentElement.style.setProperty("--btn-voltar-font", CONFIG.botaoVoltar.fontSize);
+
+    document.documentElement.style.setProperty("--area-max-width", CONFIG.areaBase.maxWidth);
+    document.documentElement.style.setProperty("--area-max-height", CONFIG.areaBase.maxHeight);
+
+    document.documentElement.style.setProperty("--btn1-bottom", CONFIG.botao1.bottom);
+    document.documentElement.style.setProperty("--btn1-left", CONFIG.botao1.left);
+    document.documentElement.style.setProperty("--btn1-width", CONFIG.botao1.width);
+    document.documentElement.style.setProperty("--btn1-height", CONFIG.botao1.height);
+
+    document.documentElement.style.setProperty("--btn2-bottom", CONFIG.botao2.bottom);
+    document.documentElement.style.setProperty("--btn2-left", CONFIG.botao2.left);
+    document.documentElement.style.setProperty("--btn2-width", CONFIG.botao2.width);
+    document.documentElement.style.setProperty("--btn2-height", CONFIG.botao2.height);
+}
+
+aplicarConfiguracao();
+
+/* ÁUDIO */
 function iniciarAudioAutomatico() {
     if (!audioIniciado) {
-        audio.volume = 0.6;
+        audio.volume = CONFIG.volumeInicial;
         audio.play().catch(() => {});
         audioIniciado = true;
         btnAudio.innerHTML = "🔊";
     }
 }
 
-/* CONTROLE SOM */
 function toggleAudio(event) {
     event.stopPropagation();
+
     if (audio.paused) {
         audio.play().catch(() => {});
         btnAudio.innerHTML = "🔊";
