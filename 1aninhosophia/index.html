@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>Convite Sophia - 1 Aninho</title>
+
+<meta property="og:title" content="Convite Sophia - 1 Aninho">
+<meta property="og:description" content="Toque para abrir o convite 💖">
+<meta property="og:image" content="capalink.png">
+
+<style>
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    background: #000;
+}
+
+/* TELA */
+.page {
+    position: fixed;
+    width: 100%;
+    height: 100dvh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.active {
+    display: flex;
+}
+
+/* CONTAINER */
+.media-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* IMAGEM */
+.art-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ÁREA DA ARTE */
+.hotspot-area {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    max-width: 420px;
+    max-height: 750px;
+    aspect-ratio: 9 / 16;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* BOTÕES CLICÁVEIS */
+.hotspot {
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+
+    /* USE ISSO SÓ PARA AJUSTAR A POSIÇÃO */
+    background: rgba(255,0,0,0.25);
+    border: 2px solid red;
+}
+
+.hotspot:active {
+    transform: scale(0.95);
+}
+
+/* BOTÃO 1 - CONFIRMAR PRESENÇA */
+.btn1 {
+    bottom: 33%;
+    left: 14%;
+    width: 80px;
+    height: 80px;
+}
+
+/* BOTÃO 2 - LOCALIZAÇÃO */
+.btn2 {
+    bottom: 33%;
+    left: 42%;
+    width: 80px;
+    height: 80px;
+}
+
+/* BOTÃO SOM */
+.btn-audio {
+    position: fixed;
+    top: 40px;
+    left: 25px;
+    width: 50px;
+    height: 50px;
+    background: #ff66c4;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    border: none;
+    z-index: 9999;
+}
+</style>
+</head>
+
+<body onclick="iniciarAudioAutomatico()">
+
+<audio id="musica" loop playsinline>
+    <source src="audio.mp3" type="audio/mpeg">
+</audio>
+
+<button class="btn-audio" onclick="toggleAudio(event)" id="audioControl">🔊</button>
+
+<!-- PÁGINA PRINCIPAL -->
+<div id="principal" class="page active">
+    <div class="media-wrapper">
+
+        <img src="pagina.png" class="art-bg" alt="Convite principal">
+
+        <div class="hotspot-area">
+
+            <!-- CONFIRMAR PRESENÇA -->
+            <div class="hotspot btn1"
+            onclick="window.open('https://wa.me/5555999863461?text=Ol%C3%A1,%20confirmo%20minha%20presen%C3%A7a%20no%20anivers%C3%A1rio%20da%20Sophia%20💖')"></div>
+
+            <!-- LOCALIZAÇÃO -->
+            <div class="hotspot btn2"
+            onclick="window.open('https://maps.app.goo.gl/859PChTEDadoassk9')"></div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+const audio = document.getElementById('musica');
+const btnAudio = document.getElementById('audioControl');
+let audioIniciado = false;
+
+/* ÁUDIO */
+function iniciarAudioAutomatico() {
+    if (!audioIniciado) {
+        audio.play().catch(() => {});
+        audioIniciado = true;
+    }
+}
+
+function toggleAudio(event) {
+    event.stopPropagation();
+    if (audio.paused) {
+        audio.play().catch(() => {});
+        btnAudio.innerHTML = "🔊";
+    } else {
+        audio.pause();
+        btnAudio.innerHTML = "🔇";
+    }
+}
+</script>
+
+</body>
+</html>
