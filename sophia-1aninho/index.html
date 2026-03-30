@@ -77,10 +77,7 @@ body, html {
     z-index: 9999;
     border: none;
     font-size: 22px;
-
-    animation: float 3s ease-in-out infinite;
 }
-
 
 /* HOTSPOTS */
 .hotspot {
@@ -88,16 +85,14 @@ body, html {
     border-radius: 50%;
     cursor: pointer;
     background: rgba(255, 0, 0, 0.2);
-    bordel: 2px solid red;
+    border: 2px solid red;
     transition: transform 0.2s ease;
 }
-
-/* 🔥 BOTÕES AJUSTADOS PRA SUA ARTE */
 
 /* LOCALIZAÇÃO */
 .btn1 {
     bottom: 34%;
-    left: 16%;
+    left: 14%;
     width: 90px;
     height: 90px;
 }
@@ -105,7 +100,7 @@ body, html {
 /* PRESENTES */
 .btn2 {
     bottom: 34%;
-    left: 65%;
+    left: 35%;
     width: 90px;
     height: 90px;
 }
@@ -141,7 +136,7 @@ body, html {
 </style>
 </head>
 
-<body>
+<body ontouchstart="iniciarAudioAutomatico()" onclick="iniciarAudioAutomatico()">
 
 <!-- ÁUDIO -->
 <audio id="musica" loop playsinline>
@@ -153,7 +148,7 @@ body, html {
 <!-- PÁGINA PRINCIPAL -->
 <div id="principal" class="page active">
     <div class="media-wrapper">
-        <img src="pagina.png" class="art-bg">
+        <img src="pagina.png" class="art-bg" alt="Convite principal">
 
         <!-- LOCALIZAÇÃO -->
         <div class="hotspot btn1"
@@ -162,14 +157,13 @@ body, html {
         <!-- PRESENTES -->
         <div class="hotspot btn2"
         onclick="irParaSugestao()"></div>
-
     </div>
 </div>
 
 <!-- PÁGINA DE PRESENTES -->
 <div id="sugestao" class="page">
     <div class="media-wrapper">
-        <img src="pagina2.png" class="art-bg">
+        <img src="pagina2.png" class="art-bg" alt="Sugestão de presentes">
         <button class="btn-x" onclick="irParaPrincipal()">✕</button>
     </div>
 </div>
@@ -179,17 +173,20 @@ const audio = document.getElementById('musica');
 const btnAudio = document.getElementById('audioControl');
 let audioIniciado = false;
 
-/* INICIAR ÁUDIO */
+/* INICIAR ÁUDIO AO TOQUE EM QUALQUER LUGAR */
 function iniciarAudioAutomatico() {
     if (!audioIniciado) {
+        audio.volume = 0.6;
         audio.play().catch(() => {});
         audioIniciado = true;
+        btnAudio.innerHTML = "🔊";
     }
 }
 
 /* CONTROLE SOM */
 function toggleAudio(event) {
     event.stopPropagation();
+
     if (audio.paused) {
         audio.play().catch(() => {});
         btnAudio.innerHTML = "🔊";
