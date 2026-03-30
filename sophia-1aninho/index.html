@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>Convite Sophia - 1 Aninho</title>
+
+<!-- CAPALINK -->
+<meta property="og:title" content="Convite Sophia - 1 Aninho">
+<meta property="og:description" content="Toque para abrir o convite 💖">
+<meta property="og:image" content="capalink.png">
+
+<style>
+:root {
+    --cor-botao-x: #ff66c4;
+    --cor-botao-som: #ff66c4;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    background: #000;
+}
+
+/* TELAS */
+.page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100dvh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.active {
+    display: flex;
+}
+
+/* CONTAINER */
+.media-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* IMAGEM */
+.art-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* BOTÃO SOM */
+.btn-audio {
+    position: fixed;
+    top: calc(env(safe-area-inset-top) + 40px);
+    left: 25px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--cor-botao-som);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999;
+    border: none;
+    font-size: 22px;
+}
+
+/* HOTSPOTS */
+.hotspot {
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+    background: transparent;
+    transition: transform 0.2s ease;
+}
+
+/* 🔥 BOTÕES AJUSTADOS PRA SUA ARTE */
+
+/* LOCALIZAÇÃO */
+.btn1 {
+    bottom: 31%;
+    left: 24%;
+    width: 90px;
+    height: 90px;
+}
+
+/* PRESENTES */
+.btn2 {
+    bottom: 31%;
+    right: 24%;
+    width: 90px;
+    height: 90px;
+}
+
+/* CLIQUE */
+.btn1:active,
+.btn2:active {
+    transform: scale(0.95);
+}
+
+/* BOTÃO VOLTAR */
+.btn-x {
+    position: absolute;
+    top: calc(env(safe-area-inset-top) + 40px);
+    right: 25px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--cor-botao-x);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    font-size: 22px;
+    z-index: 9999;
+}
+
+.btn-x:active {
+    transform: scale(0.9);
+}
+</style>
+</head>
+
+<body onclick="iniciarAudioAutomatico()">
+
+<!-- ÁUDIO -->
+<audio id="musica" loop playsinline>
+    <source src="audio.mp3" type="audio/mpeg">
+</audio>
+
+<button class="btn-audio" onclick="toggleAudio(event)" id="audioControl">🔊</button>
+
+<!-- PÁGINA PRINCIPAL -->
+<div id="principal" class="page active">
+    <div class="media-wrapper">
+        <img src="pagina.png" class="art-bg">
+
+        <!-- LOCALIZAÇÃO -->
+        <div class="hotspot btn1"
+        onclick="window.open('https://maps.app.goo.gl/SEU_LINK_AQUI', '_blank')"></div>
+
+        <!-- PRESENTES -->
+        <div class="hotspot btn2"
+        onclick="irParaSugestao()"></div>
+
+    </div>
+</div>
+
+<!-- PÁGINA DE PRESENTES -->
+<div id="sugestao" class="page">
+    <div class="media-wrapper">
+        <img src="pagina2.png" class="art-bg">
+        <button class="btn-x" onclick="irParaPrincipal()">✕</button>
+    </div>
+</div>
+
+<script>
+const audio = document.getElementById('musica');
+const btnAudio = document.getElementById('audioControl');
+let audioIniciado = false;
+
+/* INICIAR ÁUDIO */
+function iniciarAudioAutomatico() {
+    if (!audioIniciado) {
+        audio.play().catch(() => {});
+        audioIniciado = true;
+    }
+}
+
+/* CONTROLE SOM */
+function toggleAudio(event) {
+    event.stopPropagation();
+    if (audio.paused) {
+        audio.play().catch(() => {});
+        btnAudio.innerHTML = "🔊";
+    } else {
+        audio.pause();
+        btnAudio.innerHTML = "🔇";
+    }
+}
+
+/* NAVEGAÇÃO */
+function irParaSugestao() {
+    document.getElementById('principal').classList.remove('active');
+    document.getElementById('sugestao').classList.add('active');
+}
+
+function irParaPrincipal() {
+    document.getElementById('sugestao').classList.remove('active');
+    document.getElementById('principal').classList.add('active');
+}
+</script>
+
+</body>
+</html>
