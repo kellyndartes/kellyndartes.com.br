@@ -129,14 +129,19 @@ body, html {
     font-size: 22px;
     z-index: 9999;
 }
-
+/* ANIMAÇÃO SUAVE */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0px); }
+}  
 .btn-x:active {
     transform: scale(0.9);
 }
 </style>
 </head>
 
-<body ontouchstart="iniciarAudioAutomatico()" onclick="iniciarAudioAutomatico()">
+<body onclick="iniciarAudioAutomatico()">
 
 <!-- ÁUDIO -->
 <audio id="musica" loop playsinline>
@@ -176,26 +181,28 @@ let audioIniciado = false;
 /* INICIAR ÁUDIO AO TOQUE EM QUALQUER LUGAR */
 function iniciarAudioAutomatico() {
     if (!audioIniciado) {
-        audio.volume = 0.6;
         audio.play().catch(() => {});
         audioIniciado = true;
-        btnAudio.innerHTML = "🔊";
     }
 }
 
 /* CONTROLE SOM */
 function toggleAudio(event) {
     event.stopPropagation();
-
     if (audio.paused) {
-        audio.play().catch(() => {});
+        audio.play();
         btnAudio.innerHTML = "🔊";
     } else {
         audio.pause();
         btnAudio.innerHTML = "🔇";
     }
 }
-
+/* VIBRAÇÃO */
+function vibrar() {
+    if (navigator.vibrate) {
+        navigator.vibrate([30, 50, 30]);
+    }
+}
 /* NAVEGAÇÃO */
 function irParaSugestao() {
     document.getElementById('principal').classList.remove('active');
