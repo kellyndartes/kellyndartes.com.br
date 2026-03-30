@@ -92,7 +92,7 @@ body, html {
 /* LOCALIZAÇÃO */
 .btn1 {
     bottom: 34%;
-    left: 13.5%;
+    left: 13%;
     width: 80px;
     height: 80px;
 }
@@ -100,7 +100,7 @@ body, html {
 /* PRESENTES */
 .btn2 {
     bottom: 34%;
-    left: 33%;
+    left: 30%;
     width: 80px;
     height: 80px;
 }
@@ -181,8 +181,10 @@ let audioIniciado = false;
 /* INICIAR ÁUDIO AO TOQUE EM QUALQUER LUGAR */
 function iniciarAudioAutomatico() {
     if (!audioIniciado) {
+        audio.volume = 0.6;
         audio.play().catch(() => {});
         audioIniciado = true;
+        btnAudio.innerHTML = "🔊";
     }
 }
 
@@ -190,19 +192,21 @@ function iniciarAudioAutomatico() {
 function toggleAudio(event) {
     event.stopPropagation();
     if (audio.paused) {
-        audio.play();
+        audio.play().catch(() => {});
         btnAudio.innerHTML = "🔊";
     } else {
         audio.pause();
         btnAudio.innerHTML = "🔇";
     }
 }
+
 /* VIBRAÇÃO */
 function vibrar() {
     if (navigator.vibrate) {
         navigator.vibrate([30, 50, 30]);
     }
 }
+
 /* NAVEGAÇÃO */
 function irParaSugestao() {
     document.getElementById('principal').classList.remove('active');
