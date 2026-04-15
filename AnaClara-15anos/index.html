@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--
+© 2026 Cristiane Oliveira
+Material exclusivo para alunos.
+Proibida reprodução, distribuição ou revenda.
+Lei 9.610/98 – Direitos Autorais.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Convite Filippo</title>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Convite Especial - Filippo">
+<meta property="og:description" content="Clique para abrir o convite interativo!">
+<meta property="og:image" content="https://crispoparte.com.br/filippo/capalink.png">
+<meta property="og:image:secure_url" content="https://crispoparte.com.br/filippo/capalink.png">
+<meta property="og:url" content="https://crispoparte.com.br/filippo/">
+<meta property="og:type" content="website">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Convite Especial - Filippo">
+<meta name="twitter:description" content="Clique para abrir o convite interativo!">
+<meta name="twitter:image" content="https://crispoparte.com.br/filippo/capalink.png">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+    position: fixed;
+}
+
+/* Overlay */
+.page-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    background: #000;
+    transition: opacity 0.5s ease;
+}
+
+.bg-btn {
+    width: 100%;
+    height: 100%;
+    background-image: url('abrir.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+/* Botão música */
+#music-control {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 50px;
+    height: 50px;
+    background-color: #e4483e;
+    border-radius: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    border: none;
+    animation: pulse-soft 2s infinite ease-in-out;
+}
+
+@keyframes pulse-soft {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+#music-control svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+/* Canva */
+#container-canva {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.canva-wrapper {
+    width: 100%;
+    height: 350%;
+    position: relative;
+}
+
+iframe {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    width: 175%;
+    height: 100%;
+    border: none;
+    transform: translateX(-50%);
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop preload="auto">
+    <source src="audio.mp3" type="audio/mpeg">
+</audio>
+
+<button id="music-control" onclick="toggleMusic()">
+<svg viewBox="0 0 24 24">
+<path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.85 14,18.71V20.77C18.03,19.86 21,16.28 21,12C21,7.72 18.03,4.14 14,3.23M3,9V15H7L12,20V4L7,9H3Z"/>
+</svg>
+</button>
+
+<div class="page-overlay" id="overlay">
+    <div class="bg-btn" id="btnAbrir"></div>
+</div>
+
+<div id="container-canva">
+    <div class="canva-wrapper">
+        <iframe src="https://www.canva.com/design/DAG8FQsgmJ0/656UfPLYCpXCZPXNwlCf7A/view?embed" allow="autoplay"></iframe>
+    </div>
+</div>
+
+<script>
+const audio = document.getElementById('bgMusic');
+const botaoAbrir = document.getElementById('btnAbrir');
+const overlay = document.getElementById('overlay');
+const containerCanva = document.getElementById('container-canva');
+const musicBtn = document.getElementById('music-control');
+
+botaoAbrir.addEventListener('click', () => {
+    audio.play().catch(() => {});
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+        overlay.style.display = 'none';
+        containerCanva.style.display = 'block';
+        musicBtn.style.display = 'flex';
+    }, 500);
+});
+
+function toggleMusic() {
+    if (audio.paused) {
+        audio.play();
+    } else {
+        audio.pause();
+    }
+}
+
+document.addEventListener('contextmenu', e => e.preventDefault());
+</script>
+
+</body>
+</html>
