@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    
+
+
+    const mu=document.getElementById('m'), btn=document.getElementById('btn-s'), sk=document.getElementById('skip'), tm=document.getElementById('timer-wrapper');
+    const hasP2 = true, hasP3 = true;
+    let lastPg = 1, iniciado = false, currentZap = "";
+    
+    function s(el){ 
+        if(iniciado) return; iniciado = true;
+        if(el && el.tagName === 'DIV') el.removeAttribute('onclick');
+        
+        mu.load(); 
+        mu.play().catch(()=>{}); 
+        
+        const vAct = document.querySelector('.page.active video');
+        if(vAct) { vAct.muted = false; vAct.play().catch(()=>{}); }
+        
+        btn.style.display='flex'; 
+        if (hasP2) { 
+            if("nao"==='sim' && hasP3) sk.style.display='block'; 
+            g(2); 
+            const v2=document.getElementById('v2'); 
+            if(v2 && v2.tagName==='VIDEO'){ v2.play().catch(()=>{}); v2.onended=()=> { if(hasP3) g(3); } }
+            else if(hasP3) { setTimeout(()=>g(3),4000); } 
+        } else {
+            const v1=document.getElementById('v1'); 
+            if(v1) { v1.muted = false; v1.play().catch(()=>{}); }
+        }
+    }
+    
+    function g(n){ 
+        if(n <= 3) lastPg = n; 
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        if(n==3 || (!hasP3 && n==2) || (!hasP2 && n==1) || n > 3) sk.style.display='none';
+        else if ("nao"==='sim' && hasP3 && n < 3) sk.style.display='block';
+        tm.style.display = ("sim"==='sim' && n=="4") ? 'block' : 'none';
+        const t=document.getElementById('pg'+n); 
+        if(t){
+            t.classList.add('active'); 
+            const v=t.querySelector('video'); 
+            if(v) { if(iniciado) v.muted = false; v.play().catch(()=>{}); }
+        }
+    }
+    
+    function rv(){ g(lastPg); } 
+    function t(){ mu.paused ? mu.play() : mu.pause(); }
+    function abrirForm(z){ currentZap = z; document.getElementById('form-modal').style.display='flex'; }
+    
+    
+        if(nome === "" || participa === "") { alert("Por favor, preencha seu nome e se você vai participar."); return; }
+        let infoIdade = idades ? idades : "Não informado";
+        let msg = `✨ *CONFIRMAÇÃO DE PRESENÇA* ✨\n\n👤 *Nome:* ${nome}\n🙌 *Vai participar?* ${participa}\n👥 *Acompanhantes:* ${convidados}\n👨‍👩‍👧‍👦 *Total de Adultos:* ${adultos}\n👶 *Total de Crianças:* ${criancas}\n🎂 *Idade das Crianças:* ${infoIdade}\n\n_Enviado via Formulário_`;
+        window.open(`https://wa.me/${currentZap}?text=${encodeURIComponent(msg)}`);
+    }
+
+    if("sim"==='sim'){ setInterval(()=>{ 
+        const dist=new Date("")-new Date(); if(dist<0)return;
+        document.getElementById('d').innerText=Math.floor(dist/86400000).toString().padStart(2,'0');
+        document.getElementById('h').innerText=Math.floor((dist%86400000)/3600000).toString().padStart(2,'0');
+        document.getElementById('mi').innerText=Math.floor((dist%3600000)/60000).toString().padStart(2,'0');
+        document.getElementById('se').innerText=Math.floor((dist%60000)/1000).toString().padStart(2,'0');
+    },1000); }
+</script></body></html>
