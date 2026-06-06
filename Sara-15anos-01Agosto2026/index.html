@@ -1,0 +1,19 @@
+pPropagation()" style="top:75.04%; left:48.83%; width:13.26%; height:13.26%;"></a>
+<div class="hotspot" onclick="s(); event.stopPropagation(); g(4)" style="top:75.39%; left:71.33%; width:13.88%; height:13.88%;"></div>
+<div class="
+ 
+
+        if(nome === "" || participa === "") { alert("Por favor, preencha seu nome e se você vai participar."); return; }
+        let infoIdade = idades ? idades : "Não informado";
+        let msg = `✨ *CONFIRMAÇÃO DE PRESENÇA* ✨\n\n👤 *Nome:* ${nome}\n🙌 *Vai participar?* ${participa}\n👥 *Acompanhantes:* ${convidados}\n👨‍👩‍👧‍👦 *Total de Adultos:* ${adultos}\n👶 *Total de Crianças:* ${criancas}\n🎂 *Idade das Crianças:* ${infoIdade}\n\n_Enviado via Formulário_`;
+        window.open(`https://wa.me/${currentZap}?text=${encodeURIComponent(msg)}`);
+    }
+
+    if("sim"==='sim'){ setInterval(()=>{ 
+        const dist=new Date("2026-08-01T20:00")-new Date(); if(dist<0)return;
+        document.getElementById('d').innerText=Math.floor(dist/86400000).toString().padStart(2,'0');
+        document.getElementById('h').innerText=Math.floor((dist%86400000)/3600000).toString().padStart(2,'0');
+        document.getElementById('mi').innerText=Math.floor((dist%3600000)/60000).toString().padStart(2,'0');
+        document.getElementById('se').innerText=Math.floor((dist%60000)/1000).toString().padStart(2,'0');
+    },1000); }
+</script></body></html>
